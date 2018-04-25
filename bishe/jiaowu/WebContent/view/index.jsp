@@ -14,29 +14,24 @@
 
 
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="${pageContext.request.contextPath}/js/jquery-1.11.3.js"></script>
-
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script
 	src="${pageContext.request.contextPath}/css/bootstrap/js/bootstrap.min.js"></script>
 <title>主页</title>
 <script type="text/javascript">
-function logout() {
-		$
-				.post(
-						getContextPath() + "${pageContext.request.contextPath}/user/logout",
-						null,
-						function() {
-							$("#info")
-									.html(
-											
-													);
-							//显示购物车中商品数量
-							
-						});
-}
-		</script>
+	function logout() {
+		$.post(getContextPath()
+				+ "${pageContext.request.contextPath}/user/logout", null,
+				function() {
+					$("#info").html(
+
+					);
+					//显示购物车中商品数量
+
+				});
+	}
+</script>
 </head>
 
 <body>
@@ -72,14 +67,20 @@ function logout() {
 								<div class="col-md-12">
 									<div class="panel-body">
 										<ul class="nav nav-pills">
-											<li role="presentation"><a href="${pageContext.request.contextPath}/view/index.jsp"
+											<li role="presentation"><a
+												href="${pageContext.request.contextPath}/view/index.jsp"
 												class="btn btn-info">主页</a></li>
-											<li role="presentation"><a href="${pageContext.request.contextPath}/takecourse/getTakeCourse">选课</a></li>
-											<li role="presentation"><a href="${pageContext.request.contextPath}/view/searchCourse.jsp">搜索课程</a></li>
-											<li role="presentation"><a href="${pageContext.request.contextPath}/course/getAllCourse">学校所有课程</a></li>
-											<li role="presentation"><a href="${pageContext.request.contextPath}/news/getNews">选课相关通知</a></li>
-											<li role="presentation"><a href="${pageContext.request.contextPath}/view/ours.jsp">留言区</a></li>
-											</ul>
+											<li role="presentation"><a
+												href="${pageContext.request.contextPath}/takecourse/getTakeCourse">选课</a></li>
+											<li role="presentation"><a
+												href="${pageContext.request.contextPath}/view/searchCourse.jsp">搜索课程</a></li>
+											<li role="presentation"><a
+												href="${pageContext.request.contextPath}/course/getAllCourse">学校所有课程</a></li>
+											<li role="presentation"><a
+												href="${pageContext.request.contextPath}/news/getNews">选课相关通知</a></li>
+											<li role="presentation"><a
+												href="${pageContext.request.contextPath}/view/ours.jsp">留言区</a></li>
+										</ul>
 									</div>
 								</div>
 							</div>
@@ -91,31 +92,39 @@ function logout() {
 												<h3 class="panel-title">个人信息</h3>
 											</div>
 											<div class="panel-body">
-												<a href="${pageContext.request.contextPath}/view/studentData.jsp" class="btn btn-default" type="button">
-													<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+												<a
+													href="${pageContext.request.contextPath}/view/studentData.jsp"
+													class="btn btn-default" type="button"> <span
+													class="glyphicon glyphicon-search" aria-hidden="true"></span>
 													<br>学生资料
-												</a> <a href="${pageContext.request.contextPath}/course/getScore?userId=${sessionScope['_LOGIN_USER_'].userId }" class="btn btn-default" type="button">
-													<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+												</a> <a
+													href="${pageContext.request.contextPath}/course/getScore?userId=${sessionScope['_LOGIN_USER_'].userId }"
+													class="btn btn-default" type="button"> <span
+													class="glyphicon glyphicon-star" aria-hidden="true"></span>
 													<br>已修学分
+												</a> </a> <a
+													href="${pageContext.request.contextPath}/course/getCourse?userId=${sessionScope['_LOGIN_USER_'].userId }"
+													class="btn btn-default" type="button"> <span
+													class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+													<br>个人课表
+												</a> <a
+													href="${pageContext.request.contextPath}/course/getCourseByClass?userId=${sessionScope['_LOGIN_USER_'].userId }"
+													class="btn btn-default" type="button"> <span
+													class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+													<br>学期课表
 												</a>
-												</a> <a href="${pageContext.request.contextPath}/course/getCourse?userId=${sessionScope['_LOGIN_USER_'].userId }" class="btn btn-default" type="button">
-													<span class="glyphicon glyphicon-th-large"
-													aria-hidden="true"></span> <br>个人课表
-												</a> 
-												 <a href="${pageContext.request.contextPath}/course/getCourseByClass?userId=${sessionScope['_LOGIN_USER_'].userId }" class="btn btn-default" type="button">
-													<span class="glyphicon glyphicon-star-empty"
-													aria-hidden="true"></span> <br>学期课表
-												</a> 
 												<c:if test="${sessionScope['_LOGIN_USER_']!=null}">
-												<a href="${pageContext.request.contextPath}/view/login_user.jsp" class="btn btn-default" type="button" onclick="logout()">
+													<a
+														href="${pageContext.request.contextPath}/view/login_user.jsp"
+														class="btn btn-default" type="button" onclick="logout()">
 
-													<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-													<br>退出系统
-												</a>
+														<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+														<br>退出系统
+													</a>
 												</c:if>
-												
-					
-					
+
+
+
 											</div>
 
 										</div>
@@ -208,12 +217,16 @@ function logout() {
 												<h3 class="panel-title">选课通知</h3>
 											</div>
 											<div class="panel-body">
-												<img src="${pageContext.request.contextPath}/images/4.png" width=20 height=20>2015-2016学期选修结束<br>
-												<img src="${pageContext.request.contextPath}/images/5.png" width=20 height=20>十月一之后，学校将开启选修课程<br>
-												<img src="${pageContext.request.contextPath}/images/6.png" width=20 height=20>体育选，正选结束，补选时间待定<br>
-												<img src="${pageContext.request.contextPath}/images/7.png" width=20 height=20>大一新生第一次之后，重新密码<br>
-												<img src="${pageContext.request.contextPath}/images/8.png" width=20 height=20>十月一之后，学校将开选修课程<br>
-												>>>更多
+												<img src="${pageContext.request.contextPath}/images/4.png"
+													width=20 height=20>2015-2016学期选修结束<br> <img
+													src="${pageContext.request.contextPath}/images/5.png"
+													width=20 height=20>十月一之后，学校将开启选修课程<br> <img
+													src="${pageContext.request.contextPath}/images/6.png"
+													width=20 height=20>体育选，正选结束，补选时间待定<br> <img
+													src="${pageContext.request.contextPath}/images/7.png"
+													width=20 height=20>大一新生第一次之后，重新密码<br> <img
+													src="${pageContext.request.contextPath}/images/8.png"
+													width=20 height=20>十月一之后，学校将开选修课程<br> >>>更多
 
 											</div>
 
@@ -223,8 +236,24 @@ function logout() {
 												<h3 class="panel-title">校历</h3>
 											</div>
 											<div class="panel-body">
-												<img src="${pageContext.request.contextPath}/images/13.png">
 
+												<div class="form-group">
+													<div class="row">
+														<div class="col-md-8">
+															<div id="datetimepicker12"></div>
+														</div>
+													</div>
+												</div>
+												<script type="text/javascript">
+													function() {
+														$('#datetimepicker12')
+																.datetimepicker(
+																		{
+																			inline : true,
+																			sideBySide : true
+																		});
+													};
+												</script>
 											</div>
 
 										</div>
@@ -261,7 +290,7 @@ function logout() {
 						<div class="col-md-12">
 							<div class="panel panel-info">
 								<div class="panel-heading">
-									<h3 class="panel-title">学生在线选课系统 </h3>
+									<h3 class="panel-title">学生在线选课系统</h3>
 								</div>
 
 							</div>
@@ -269,5 +298,13 @@ function logout() {
 					</div>
 				</div>
 			</div>
+
+			<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+			<script src="${pageContext.request.contextPath}/js/jquery-1.11.3.js"></script>
+
+
+			<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+			<script
+				src="${pageContext.request.contextPath}/css/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
