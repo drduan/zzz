@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace：必须与对应的接口全类名一致 id:必须与对应接口的某个对应的方法名一致 -->
+<mapper namespace="cn.edu.neu.mapper.CourseMapper">
+
+	
+	
+	<insert id="saveCourse" parameterType="Course">
+		insert into t_course
+		values(null,null,#{userId},#{courseName},#{courseClass},#{courseRecord},#{courseScore},
+		#{courseTime},#{courseWeek},#{courseTeacher},#{courseWhere})
+	</insert>
+	<insert id="saveCourse1" parameterType="Course">
+		insert into t_course
+		values(null,#{takecourseId},#{userId},#{courseName},#{courseClass},#{courseRecord},#{courseScore},
+		#{courseTime},#{courseWeek},#{courseTeacher},#{courseWhere})
+	</insert>
+	<insert id="saveTakeCourse" parameterType="Course">
+		insert into t_course
+		values(null,#{takecourseId},#{userId},#{courseName},#{courseClass},#{courseRecord},#{courseScore},
+		#{courseTime},#{courseWeek},#{courseTeacher},#{courseWhere})
+	</insert>
+	
+	<delete id="removeCourse" parameterType="Course">
+		delete from t_course where
+		c_id=#{courseId}
+	</delete>
+	<select id="findCourseById" parameterType="int" resultType="Course">
+	    select c_id courseId,s_id userId,ct_id takecouseId,c_name courseName,c_class
+		courseClass,c_record courseRecord,c_score courseScore,c_time courseTime,
+		c_week courseWeek,c_teacher courseTeacher,c_where courseWhere from
+		t_course where c_id=#{courseId}
+	</select>
+	<update id="updateCourse" parameterType="Course">
+	    update t_course set s_id=#{userId},c_name=#{courseName},c_class=#{courseClass},c_record=#{courseRecord},
+	    c_score=#{courseScore},c_time=#{courseTime},c_week=#{courseWeek},c_teacher=#{courseTeacher},
+	    c_where=#{courseWhere}
+	    where c_id=#{courseId}
+	</update>
+	
+	
+	
+	
+	
+
+	<resultMap type="Course" id="CourseResultMap">
+		<id property="courseId" column="courseId" />
+		<id property="userId" column="userId" />
+		<id property="takecourseId" column="takecourseId" />
+		<result property="courseName" column="courseName" />
+		<result property="courseClass" column="courseClass" />
+		<result property="courseRecord" column="courseRecord" />
+		<result property="courseScore" column="courseScore" />
+		<result property="courseTime" column="courseTime" />
+		<result property="courseWeek" column="courseWeek" />
+		<result property="courseTeacher" column="courseTeacher" />
+		<result property="courseWhere" column="courseWhere" />
+		
+	</resultMap>
+	<select id="findCourseBySearchKeyword" resultMap="CourseResultMap">
+		select c_id courseId,s_id userId,ct_id takecouseId,c_name courseName,c_class
+		courseClass,c_record courseRecord,c_score courseScore,c_time courseTime,
+		c_week courseWeek,c_teacher courseTeacher,c_where courseWhere from
+		t_course
+		<where>
+		     <if test="params.userId!=0 and params.userId!=null">
+			    s_id=#{params.userId} 
+			  </if>
+			 <if test="params.courseNames!=null ">
+			   <foreach item="item" index="index" collection="params.courseNames"  >
+		        and c_name like CONCAT(CONCAT('%', #{params.courseNames[${index}]}), '%') 
+		      </foreach>
+		      </if>
+			
+		</where>
+		
+	</select>
+	<select id="findCourseByKeyword" resultType="Course">
+		select c_id courseId,s_id userId,ct_id takecouseId,c_name courseName,c_class
+		courseClass,c_record courseRecord,c_score courseScore,c_time courseTime,
+		c_week courseWeek,c_teacher courseTeacher,c_where courseWhere from
+		t_course
+		<where>	    
+		    <foreach item="item"  collection="params.keywords"  >
+		       and c_name like CONCAT('%', '${item}', '%') 
+		    </foreach>
+	    </where>
+	    	    <if test="params.sort!=null">
+		<choose>
+		  <when test="params.sort ==1">
+		    order by c_score
+		  </when>
+		  <when test="params.sort ==2">
+		    order by c_score desc
+		  </when>
+
+		  <otherwise>
+		    order by c_score
+		  </otherwise>
+		</choose>
+		</if>
+		<if test="params.sort==null">
+		     order by c_score
+		</if>		
+	</select>
+	
+	<select id="findAllCourse" parameterType="int" resultType="Course">
+		select c_id courseId,s_id userId,ct_id takecouseId,c_name courseName,c_class
+		courseClass,c_record courseRecord,c_score courseScore,c_time courseTime,
+		c_week courseWeek,c_teacher courseTeacher,c_where courseWhere from
+		t_course
+	</select>
+	<select id="findScore" resultType="Course">
+		select c_id courseId,s_id userId,ct_id takecouseId,c_name courseName,
+		c_score courseScore from
+		t_course where s_id=#{params.userId}
+	</select>
+	<select id="findCourse" parameterType="int" resultType="Course">
+		select c_id courseId,s_id userId,ct_id takecouseId,c_name courseName,c_class
+		courseClass,c_record courseRecord,c_score courseScore,c_time courseTime,
+		c_week courseWeek,c_teacher courseTeacher,c_where courseWhere from
+		t_course where s_id=#{params.userId}
+	</select>
+	<select id="findTakeSuccessCourse" parameterType="int" resultType="Course">
+		select c_id courseId,s_id userId,ct_id takecouseId,c_name courseName,c_class
+		courseClass,c_record courseRecord,c_score courseScore,c_time courseTime,
+		c_week courseWeek,c_teacher courseTeacher,c_where courseWhere from
+		t_course where s_id=#{params.userId} and ct_id=#{takecoureseId}
+	</select>		
+	<select id="findCourseByClass" resultMap="CourseResultMap">
+		select c_id courseId,s_id userId,ct_id takecouseId,c_name courseName,c_class
+		courseClass,c_record courseRecord,c_score courseScore,c_time courseTime,
+		c_week courseWeek,c_teacher courseTeacher,c_where courseWhere from
+		t_course 
+		<where>	    		    
+			  <if test="params.courseClasss!=null ">
+			   <foreach item="item" index="index" collection="params.courseClasss"  >
+		        and c_class like CONCAT(CONCAT('%', #{params.courseClasss[${index}]}), '%') 
+		      </foreach>
+		      </if>
+		      and s_id=#{params.userId}
+	    </where>
+	</select>
+	
+</mapper>

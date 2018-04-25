@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace：必须与对应的接口全类名一致 id:必须与对应接口的某个对应的方法名一致 -->
+<mapper namespace="cn.edu.neu.mapper.TeacherMapper">
+
+	<!-- mybsits_config中配置的alias类别名,也可直接配置resultType为类路劲 -->
+	<select id="findAllCourseTeacher" resultType="Teacher">
+		select t_id teacherId,t_name teacherName,t_where teacherWhere from t_teacher
+
+	</select>
+	<insert id="saveTeacher" parameterType="Teacher">
+		insert into t_teacher
+		values(null,#{teacherName},#{teacherWhere})
+	</insert>
+	<delete id="removeTeacher" parameterType="Teacher">
+		delete from t_teacher where
+		t_id=#{teacherId}
+	</delete>
+	<select id="findTeacherById" parameterType="int" resultType="Teacher">
+		select t_id teacherId,t_name teacherName,t_where teacherWhere from
+		t_teacher where t_id=#{teacherId}
+	</select>
+	<update id="updateTeacher" parameterType="Teacher">
+		update t_teacher set t_id=#{teacherId},t_name=#{teacherName},
+		t_where=#{teacherWhere}
+		where t_id=#{teacherId}
+	</update>
+
+
+	<resultMap type="Teacher" id="TeacherResultMap">
+		<id property="teacherId" column="teacherId" />
+		<result property="teacherName" column="teacherName" />
+		<result property="teacherWhere" column="teacherWhere" />
+	</resultMap>
+	<select id="findTeacherBySearchKeyword" resultMap="TeacherResultMap">
+		select t_id teacherId,t_name teacherName,t_where teacherWhere from
+		t_teacher g
+		<where>
+			<if test="params.teacherNames!=null ">
+			   <foreach item="item" index="index" collection="params.teacherNames"  >
+		        and t_name like CONCAT(CONCAT('%', #{params.teacherNames[${index}]}), '%') 
+		      </foreach>
+		      </if>
+		</where>
+	</select>
+
+</mapper>

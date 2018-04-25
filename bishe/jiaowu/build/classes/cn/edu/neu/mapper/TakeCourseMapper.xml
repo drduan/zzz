@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace：必须与对应的接口全类名一致 id:必须与对应接口的某个对应的方法名一致 -->
+<mapper namespace="cn.edu.neu.mapper.TakeCourseMapper">
+    
+    <insert id="saveTakeCourse" parameterType="TakeCourse">
+		insert into t_takecourse
+		values(null,#{takecourseName},#{takecourseClass},#{takecourseRecord},#{takecourseScore},
+		#{takecourseTime},#{takecourseWeek})
+	</insert>
+	
+	<delete id="removeTakeCourse" parameterType="TakeCourse">
+		delete from t_takecourse where
+		ct_id=#{takecourseId}
+	</delete>
+	<delete id="delTakeCourseTeacher" >
+	    delete from t_courseteacher where ct_id = #{takecourseId}  
+	</delete>
+	<select id="findTakeCourseById" parameterType="int" resultType="TakeCourse">
+	    select ct_id takecourseId,ct_name takecourseName,ct_class
+		takecourseClass,ct_record takecourseRecord,ct_score takecourseScore,ct_time takecourseTime,
+		ct_week takecourseWeek from t_takecourse where ct_id=#{takecourseId}
+	</select>
+	<update id="updateTakeCourse" parameterType="TakeCourse">
+	    update t_takecourse set ct_name=#{takecourseName},ct_class=#{takecourseClass},ct_record=#{takecourseRecord},
+	    ct_score=#{takecourseScore},ct_time=#{takecourseTime},ct_week=#{takecourseWeek} where ct_id=#{takecourseId}
+	</update>
+	
+	<select id="findAllTakeCourse" parameterType="int"
+		resultType="cn.edu.neu.model.TakeCourse">
+		select ct_id takecourseId,ct_name
+		takecourseName,ct_record takecourseRecord,ct_class takecourseClass,
+		ct_score takecourseScore,ct_week takecourseWeek,ct_time takecourseTime
+		from t_takecourse
+		
+		<if test="params.sort!=null">
+			<choose>
+				<when test="params.sort==1">
+					order by ct_score
+				</when>
+				<when test="params.sort==2">
+					order by ct_score desc
+				</when>
+
+			</choose>
+		</if>
+
+	</select>
+
+	<select id="findTakeCourseByKeyword" resultType="cn.edu.neu.model.TakeCourse">
+		select ct_id takecourseId,ct_name
+		takecourseName,ct_record takecourseRecord,ct_class takecourseClass,
+		ct_score takecourseScore,ct_week takecourseWeek,ct_time takecourseTime
+		from t_takecourse
+		<where>
+			<foreach item="item" index="index" collection="params.keywords">
+				and ct_name
+				like CONCAT(CONCAT('%',#{params.keywords[${index}]}),'%')
+			</foreach>
+		</where>
+		<if test="params.sort!=null">
+			<choose>
+				<when test="params.sort==1">
+					order by ct_score
+				</when>
+				<when test="params.sort==2">
+					order by ct_score desc
+				</when>
+
+			</choose>
+		</if>
+
+	</select>
+
+	<resultMap type="cn.edu.neu.model.TakeCourse" id="TakeCourseResultMap">
+		<id property="takecourseId" column="takecourseId" />
+		<result property="takecourseName" column="takecourseName" />
+		<result property="takecourseRecord" column="takecourseRecord" />
+		<result property="takecourseClass" column="takecourseClass" />
+		<result property="takecourseScore" column="takecourseScore" />
+		<result property="takecourseWeek" column="takecourseWeek" />
+		<result property="takecourseTime" column="takecourseTime" />
+
+		<!-- TakeCourse与Where一对多关系
+		<collection property="where" ofType="cn.edu.neu.model.Where">
+			<id property="whereId" column="whereId" />
+			<result property="whereName" column="whereName" />
+		</collection>  -->
+
+		<!-- TakeCourse与Teacher一对多关系 -->
+		<collection property="teacher" ofType="cn.edu.neu.model.Teacher">
+			<id property="teacherId" column="teacherId" />
+			<result property="teacherName" column="teacherName" />
+			<result property="teacherWhere" column="teacherWhere" />
+		</collection>
+	</resultMap>
+	
+	<select id="findTakeCourseBySearchKeyword" resultMap="TakeCourseResultMap">
+		select ct_id takecourseId,ct_name takecourseName,ct_class
+		takecourseClass,ct_record takecourseRecord,ct_score takecourseScore,ct_time takecourseTime,
+		ct_week takecourseWeek from
+		t_takecourse
+		<where>
+		    <if test="params.takecourseNames!=null ">
+			   <foreach item="item" index="index" collection="params.takecourseNames"  >
+		        and ct_name like CONCAT(CONCAT('%', #{params.takecourseNames[${index}]}), '%') 
+		      </foreach>
+		      </if>
+			
+		</where>
+		
+	</select>
+
+	<select id="findTakeCourseDetailById" parameterType="int" resultMap="TakeCourseResultMap">
+		select ct_id takecourseId,ct_name
+		takecourseName,ct_record takecourseRecord,ct_class takecourseClass,
+		ct_score takecourseScore,ct_week takecourseWeek,ct_time takecourseTime
+		from t_takecourse
+		where ct_id=#{takecourseId}
+	</select> 
+
+	<!-- <select id="findTakeCourseWhereById" parameterType="int" resultMap="TakeCourseResultMap">
+		select ct.ct_id takecourseId,w.w_id whereId,w.w_name whereName
+		from
+		t_takecourse ct
+		left join t_coursewhere cw on ct.ct_id=cw.ct_id
+		left join
+		t_where w on cw.w_id=w.w_id
+		where ct.ct_id=#{takecourseId}
+	</select> -->
+
+	<select id="findTakeCourseTeacherById" parameterType="int" resultMap="TakeCourseResultMap">
+		select ct.ct_id takecourseId,t.t_id teacherId,t.t_name teacherName, t.t_where teacherWhere
+		from
+		t_takecourse ct
+		left join t_courseteacher ctt on ct.ct_id=ctt.ct_id
+		left join
+		t_teacher t on ctt.t_id=t.t_id
+		where ct.ct_id=#{takecourseId}
+	</select>
+	<select id="findTakeCourseTeacherIds" resultType="String">
+	    select t_id from t_courseteacher where takecourse_id=#{takecourseId}
+	</select>
+	<insert id="saveTakeCourseTeacher" >
+	    insert into t_courseteacher values(#{0},#{1})
+	</insert>
+	<!-- <delete id="delTakeCourseTeacher" >
+	    delete from t_courseteacher where ct_id = #{courseteacherId}
+	</delete> -->
+	<delete id="delTakeCourseTeachers" parameterType="int">
+	    delete from r_goodssize where ct_id=#{0} and t_id=#{1}
+	</delete>
+	<!-- <insert id="saveSuccessTakeCourse" parameterType="SuccessTakeCourse">
+		insert into t_successtakecourse
+		values(null,#{userId},#{takecourseId},#{successTakeCourseName},#{successTakeCourseRecord},#{takecourse}
+		#{successTakeCourseScore},#{successTakeCourseWeek},#{successTakeCourseTime},#{successTakeCourseWhere},#{successTakeCourseTeacher})
+	</insert> -->
+
+	
+</mapper>

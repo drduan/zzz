@@ -1,0 +1,350 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/bootstrap/css/default.css">
+<!-- Custom styles for this template -->
+<link href="${pageContext.request.contextPath}/css/carousel.css"
+	rel="stylesheet">
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="${pageContext.request.contextPath}/js/jquery-1.11.3.js"></script>
+<script src="${pageContext.request.contextPath}/js/functions.js"></script>
+<script src="${pageContext.request.contextPath}/js/cart.js"></script>
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script
+	src="${pageContext.request.contextPath}/css/bootstrap/js/bootstrap.min.js"></script>
+<title>学生用户注册</title>
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				//验证用户名是否可用
+				$("#regForm #userName").blur(function() {
+					$.post(getContextPath() + "/user/checkStudentName", {
+						userName : $("#regForm #userName").val()
+					}, function(result) {
+						if (result.available) {
+							$("#checkNameResult").html("该用户名可用");
+						} else {
+							$("#checkNameResult").html("对不起，该用户名已被占用，请更换");
+						}
+					});
+				});
+
+				if (cart.getGoodsList() == false)
+					$("#cartBadge").html(0);
+				else
+					$("#cartBadge").html(cart.getGoodsList().length);
+
+				$.post(getContextPath() + "/cate/getAllCates", null, function(
+						result) {
+					var cates = result.cates;
+					if (cates && cates.length > 0) {
+						var cateId = $.getUrlParam("cateId");
+						for (var i = 0; i < cates.length; i++) {
+							//上方导航下拉菜单-商品分类
+							var s = "<li><a href='" + getContextPath()
+									+ "/goods/getGoodsByCate?cateId="
+									+ cates[i].cateId + "'>"
+									+ cates[i].cateName + "</a></li>";
+							$("#dropdown_cate").append(s);
+
+							//左侧导航listgroup-商品分类						
+							if (i == cateId - 1)
+								s = "<a href='" + getContextPath()
+										+ "/goods/getGoodsByCate?cateId="
+										+ cates[i].cateId
+										+ "' class='list-group-item active'>"
+										+ cates[i].cateName + "</a>";
+							else
+								s = "<a href='" + getContextPath()
+										+ "/goods/getGoodsByCate?cateId="
+										+ cates[i].cateId
+										+ "' class='list-group-item '>"
+										+ cates[i].cateName + "</a>";
+							$("#left_cate").append(s);
+						}
+					} else {
+						$("#dropdown_cate").html("暂无相关信息");
+					}
+
+				}, "json");
+			});
+
+	function login() {
+		var userName = $("#userName").val();
+		var userPass = $("#userPass").val();
+		$
+				.post(
+						getContextPath() + "/user/login",
+						{
+							userName : userName,
+							userPass : userPass
+						},
+						function(result) {
+							$('#loginFormModal').modal('hide');
+							if (result.login == "yes") {
+								//alert("true");
+								$("#info")
+										.html(
+												"<li id='li1'><span>"
+														+ userName
+														+ "您好，欢迎来到学生选课系统！</span>"
+
+														+ "<li><a href='#' onclick='logout()'>退出登录</a></li>");
+
+							} else {
+								//alert("false");
+								$("#msgTitle").html("登录失败");
+								$("#msgBody").html("用户名或密码错误");
+								$("#msgModal").modal();
+
+							}
+						});
+	}
+	function logout() {
+		$
+				.post(
+						getContextPath() + "/user/logout",
+						null,
+						function() {
+							$("#info")
+									.html(
+											"<li id='li1'><span>您好，欢迎来到学生选课系统！</span>"
+													+ "<a href='#loginFormModal' data-toggle='modal'>[登录]</a>&nbsp;<a href='#regFormModal' data-toggle='modal'>[新用户注册]</a></li>");
+							//显示购物车中商品数量
+
+						});
+	}
+	function reg() {
+		$.post(getContextPath() + "/user/reg", $('#regForm').serialize(),
+				function(result) {
+					$('#regFormModal').modal('hide');
+					if (result.reg == "yes") {
+						location.href = getContextPath()
+								+ "/view/login_user.jsp";
+					} else {
+						$("#msgTitle").html("注册失败");
+						$("#msgBody").html("对不起，注册失败");
+						$("#msgModal").modal();
+					}
+				});
+	}
+	function checkLogin(result) {
+		if (result.login) {
+			//$("#msgTitle").html(result.login);
+			//$("#msgBody").html(result.login);
+			//$("#msgModal").modal();
+			$("#loginFormModal").modal();
+			return false;
+		}
+		return true;
+	}
+	function updatePic() {
+		if ($("#updatePicBut").val() == "修改学生照片") {
+			$("#userPicDiv")
+					.append(
+							"<input class=\"form-control\" name=\"userPicFile\" id=\"userPicFile\" type=\"file\"  required/>");
+			$("#updatePicBut").val("取消修改学生照片");
+		} else {
+			$("#userPicDiv").children("#userPicFile").remove();
+			$("#updatePicBut").val("修改学生照片");
+		}
+
+	}
+</script>
+
+</head>
+<body>
+
+
+	<br>
+	<br>
+	<br>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<img src="${pageContext.request.contextPath}/images/1.jpg">
+				<h2 class="modal-title text-center">学生在线选课系统</h2>
+			</div>
+			<br> <br>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+	<br>
+
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-4">
+			<img src="${pageContext.request.contextPath}/images/2.jpg" width=450
+				height=350 />
+		</div>
+
+
+		<div class="col-md-4" id="regFormModal">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="modal-title text-center">学生注册</h3>
+				</div>
+
+				<div class="panel-footer">
+					<form class="form-horizontal" role="form" id="regForm"
+						method="post">
+						<div class="form-group">
+
+							<label for="userName" class="col-sm-3 control-label"> 用户名
+							</label>
+							<div class="col-sm-9">
+								<input type="text" name="userName" id="userName"
+									class="form-control" placeholder="用户名" required /> <span
+									id="checkNameResult"></span>
+							</div>
+						</div>
+						<div class="form-group">
+
+							<label for="userPass" class="col-sm-3 control-label"> 密
+								&nbsp;码 </label>
+							<div class="col-sm-9">
+								<input type="password" class="form-control" name="userPass"
+									id="userPass" required />
+							</div>
+						</div>
+						<div class="form-group">
+
+							<label for="userProfession" class="col-sm-3 control-label">
+								专 &nbsp;业</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" name="userProfession"
+									id="userProfession" required />
+							</div>
+						</div>
+						<div class="form-group">
+
+							<label for="userClass" class="col-sm-3 control-label"> 班
+								&nbsp;级 </label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" name="userClass"
+									id="userClass" required />
+							</div>
+						</div>
+						<div class="form-group">
+
+							<label for="userRecord" class="col-sm-3 control-label"> 学
+								&nbsp;历 </label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" name="userRecord"
+									id="userRecord" required />
+							</div>
+						</div>
+						<div class="form-group">
+
+							<label for="userPhone" class="col-sm-3 control-label"> 电
+								&nbsp;话 </label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" name="userPhone"
+									id="userPhone" required />
+							</div>
+						</div>
+						<div class="form-group">
+
+							<label for="userBrithday" class="col-sm-3 control-label">
+								生 &nbsp;日 </label>
+							<div class="col-sm-9">
+								<input type="date" class="form-control" name="userBrithday"
+									id="userBrithday" required />
+							</div>
+						</div>
+						<div class="form-group">
+
+							<label for="userBrithday" class="col-sm-3 control-label">
+								入学时间 </label>
+							<div class="col-sm-9">
+								<input type="date" class="form-control" name="userTime"
+									id="userTime" required />
+							</div>
+						</div>
+						<!-- <div class="form-group" id="userPicDiv">
+							
+								
+							<label for="userBrithday" class="col-sm-3 control-label">
+								照片 </label>
+							<div class="col-sm-9">
+								<input class="form-control" name="userPic" id="userPic"
+									type="file" required />
+							</div>
+		
+			
+
+						</div> -->
+
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+
+
+
+								<button class="btn btn-default" type="button" onclick="reg()">学生注册</button>
+
+
+							</div>
+						</div>
+
+					</form>
+				</div>
+			</div>
+
+		</div>
+
+
+
+
+		<%@include file="msgModal.jsp"%>
+		<div class="col-md-2"></div>
+	</div>
+
+	<br>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="modal-title text-center">
+					<img src="${pageContext.request.contextPath}/images/3.jpg" width=90
+						height=90> Email：1615852075@qq.com大连东软信息学院 
+				</div>
+
+			</div>
+		</div>
+	</div>
+	</div>
+	<div class="modal fade" id="msgModal" role="dialog" aria-hidden="true"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" aria-hidden="true" type="button"
+						data-dismiss="modal">×</button>
+					<h4 class="modal-title" id="msgTitle"></h4>
+				</div>
+				<div class="modal-body" id="msgBody"></div>
+				<div class="modal-footer">
+					<button class="btn btn-default" type="button" data-dismiss="modal">关闭窗口</button>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+
+</body>
+</html>

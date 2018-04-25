@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace：必须与对应的接口全类名一致 id:必须与对应接口的某个对应的方法名一致 -->
+<mapper namespace="cn.edu.neu.mapper.UserMapper">
+
+	 <!-- mybsits_config中配置的alias类别名,也可直接配置resultType为类路劲 -->  
+	<select id="findById" parameterType="int" resultType="User">
+		select s_id userId,s_name userName,s_password
+		userPass,s_profession userProfession,s_class userClass,s_record userRecord,s_phone userPhone,s_brithday userBrithday,s_time userTime,s_rank userRank,s_pic userPic from
+		t_student where s_id=#{userId}
+	</select>
+	
+	<select id="findAllUser" resultType="User">
+		select s_id userId,s_name userName,s_password
+		userPass,s_profession userProfession,s_class userClass,s_record userRecord,s_phone userPhone,s_brithday userBrithday,s_time userTime,s_pic userPic from
+		t_student where s_rank=0
+	</select>
+	
+	<select id="findAll" resultType="User">
+		select s_id userId,s_name userName,s_password
+		userPass,s_profession userProfession,s_class userClass,s_record userRecord,s_phone userPhone,s_brithday userBrithday,s_time userTime,s_pic userPic from
+		t_student where s_rank=0
+	</select>
+	
+	<select id="checkStudent" parameterType="User" resultType="User">
+		select
+		s_id userId,s_name userName,s_profession userProfession,s_class userClass,s_record userRecord,s_phone userPhone,s_brithday userBrithday,s_time userTime,s_pic userPic from t_student where
+		s_name=#{userName} and s_password=#{userPass}
+	</select>
+	
+	<select id="checkStudentName" parameterType="User" resultType="int">
+		select count(*) from t_student where s_name=#{userName}
+	</select>
+	 
+	<insert id="regStudent" parameterType="User">
+	    <!-- mysql插入数据后，获取id，将新插入记录的id值 放入User对象id属性中-->
+        <selectKey keyProperty="userId" resultType="int" order="AFTER" >
+        	select last_insert_id()  as userId
+        </selectKey>
+	    
+		insert into t_student
+		values(null,#{userName},#{userPass},#{userProfession},#{userClass},#{userRecord},#{userPhone},#{userBrithday},#{userTime},0,'/images/pic/3.jpg')
+	</insert>
+	
+	
+	<select id="findStudent" resultType="User">
+	    select s_id userId,s_name userName,s_password
+		userPass,s_profession userProfession,s_class userClass,s_record userRecord,s_phone userPhone,s_brithday userBrithday,s_time userTime,,s_pic userPic from
+		t_student  where s_name=#{userName} 
+	</select>
+	
+	<insert id="saveStudent" parameterType="User">
+		insert into t_student
+		values(null,#{userName},#{userPass},#{userProfession},#{userClass},#{userRecord},#{userPhone},#{userBrithday},#{userTime},0,#{userPic})
+	</insert>
+	
+	<delete id="removeStudent" parameterType="User">
+		delete from t_student where
+		s_id=#{userId}
+	</delete>
+	
+	<update id="updateStudent" parameterType="User">	    
+		update t_student set
+		s_name=#{userName},s_password=#{userPass},s_profession=#{userProfession},s_record=#{userRecord},s_class=#{userClass},s_phone=#{userPhone}
+		,s_brithday=#{userBrithday},s_time=#{userTime},s_rank=0,s_pic=#{userPic}
+		where s_id=#{userId}
+	</update>
+	<select id="checkAdmin" parameterType="User" resultType="User">
+		select
+		s_id userId,s_name userName,s_profession userProfession,s_class userClass,s_record userRecord,s_phone userPhone,s_brithday userBrithday,s_time userTime,s_pic userPic from t_student where
+		s_name=#{userName} and s_password=#{userPass} and s_rank=1
+	</select>
+	<select id="findStudentByKeyword" resultType="User">
+		  select s_id userId,s_name userName,s_profession userProfession,s_class userClass,s_password
+		userPass,s_record userRecord,s_phone userPhone,s_brithday userBrithday,s_time userTime,s_pic userPic from
+		t_student
+		<where>
+			<foreach item="item" index="index" collection="params.keywords">
+				and s_name
+				like CONCAT(CONCAT('%',#{params.keywords[${index}]}),'%')
+			</foreach>
+		</where>
+	</select>
+	
+
+	<resultMap type="User" id="UserResultMap">
+		<id property="userId" column="userId" />
+		<result property="userName" column="userName" />
+		<result property="userPass" column="userPass" />
+		<result property="userProfession" column="userProfession" />
+		<result property="userClass" column="userClass" />
+		<result property="userRecord" column="userRecord" />
+		<result property="userPhone" column="userPhone" />
+		<result property="userBrithday" column="userBrithday" />
+		<result property="userTime" column="userTime" />
+	</resultMap>
+	<select id="findStudentBySearchKeyword" resultMap="UserResultMap">
+		select s_id userId,s_name userName,s_password
+		userPass,s_profession userProfession,s_class userClass,s_record userRecord,s_phone userPhone,s_brithday userBrithday,s_time userTime,s_pic userPic from
+		t_student 
+		<where>
+		    <if test="params.userNames!=null ">
+			   <foreach item="item" index="index" collection="params.userNames"  >
+		        and s_name like CONCAT(CONCAT('%', #{params.userNames[${index}]}), '%') 
+		      </foreach>
+		      </if>
+		      and s_rank=0
+			
+		</where>
+	</select>
+</mapper>

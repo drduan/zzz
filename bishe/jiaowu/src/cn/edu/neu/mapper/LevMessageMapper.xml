@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace：必须与对应的接口全类名一致 id:必须与对应接口的某个对应的方法名一致 -->
+<mapper namespace="cn.edu.neu.mapper.LevMessageMapper">
+	<!-- 添加留言 -->
+	<insert id="addLevMessage" useGeneratedKeys="true" keyProperty="levID" parameterType="LevMessage">
+		insert into levmessage values(null,#{s_id},#{levName},#{levEmail},#{levCon},now(),0)
+	</insert>
+	
+	<!-- 查看所有留言 -->
+	<select id="queryLevMessage" resultType="LevMessage">
+		SELECT levID,(SELECT s_name FROM t_student WHERE s_id = lev.s_id) AS s_id,
+		levName,levEmail,levCon,levTime,levFlag 
+		FROM levmessage AS lev 
+		ORDER BY lev.levTime DESC
+	</select>
+	
+	<!-- 删除留言 -->
+	<update id="deletelevMessage" parameterType="LevMessage">
+		delete from levmessage where levID=#{levID}
+    </update>
+    
+    <!-- 处理标记状态 -->
+    <update id="readLevMessage" parameterType="LevMessage">
+    	update levmessage set levFlag=1 where levID=#{levID}
+    </update>
+</mapper>
