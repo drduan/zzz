@@ -11,10 +11,9 @@
 <!-- 新 Bootstrap 核心 CSS 文件 -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/bootstrap/css/bootstrap.min.css">
-
-
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="${pageContext.request.contextPath}/js/jquery-1.11.3.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
+	
 <script src="${pageContext.request.contextPath}/js/functions.js"></script>
 
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
@@ -65,46 +64,43 @@
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
-				<img src="${pageContext.request.contextPath}/images/1.jpg">
+				<img src="${pageContext.request.contextPath}/images/1.jpg" >
 				<h2 class="modal-title text-center">学生在线选课系统</h2>
 			</div>
-			<br> <br>
-		</div>
 		<div class="col-md-2"></div>
-	</div>
+		</div>
+
 	<br>
 
-	<div class="row">
+	<div class="row" style="height: 400px"  >
 		<div class="col-md-2"></div>
-		<div class="col-md-4">
-			<img src="${pageContext.request.contextPath}/images/2.jpg" width=450
-				height=350 />
-		</div>
-		
-		
-		<div class="col-md-4">
-		<div class="panel panel-info">
+		<div class="col-md-5">
+				<img class=" img-circle img-responsive" alt="Responsive image"
+					src="${pageContext.request.contextPath}/images/2.jpg" />
+			</div>
+		<div class="col-md-3">
+		<div class="panel panel-info" >
 				<div class="panel-heading">
-					<h3 class="modal-title text-center"">
+					<h3 class="panel-title text-center">
 						登录
 					</h3>
 				</div>
 				<div class="modal-title text-center">
 				<div class="panel-body">
-         <a href="${pageContext.request.contextPath}/view/login_user.jsp" class="btn btn-info">学 生</a>
-             <a href="${pageContext.request.contextPath}/view/login_admin.jsp" >管理员</a>
+      		   <a href="${pageContext.request.contextPath}/view/login_user.jsp" class="btn btn-info">学 生</a>
+               <a href="${pageContext.request.contextPath}/view/login_admin.jsp" >管理员</a>
 				</div>
 				</div>
 				<div class="panel-footer">
 					<form class="form-horizontal" role="form" id="loginForm">
-				<div class="form-group">
+						<div class="form-group">
 					 
-					<label for="userName" class="col-sm-3 control-label">
-						用户名
-					</label>
-					<div class="col-sm-9">
-						<input type="text" name="userName" id="userName" class="form-control" />
-					</div>
+						<label for="userName" class="col-sm-3 control-label">
+							用户名
+						</label>
+						<div class="col-sm-9">
+							<input type="text" name="userName" id="userName" class="form-control" />
+						</div>
 				</div>
 				<div class="form-group">
 					 
@@ -120,7 +116,7 @@
 						<div class="checkbox">
 							 
 							<label>
-								<input type="checkbox" /> 记住我
+								<input type="checkbox" /> <small>记住我</small>
 							</label>
 						</div>
 					</div>
@@ -143,18 +139,15 @@
 			</div>
 			
 		</div>
-		
-		
-			
-		
-		<%@include file="msgModal.jsp"%>
-		<div class="col-md-2"></div>
+        <div class="col-md-2"></div>
 	</div>
-	
+	<%@include file="msgModal.jsp"%>
 	<br>
 	
-	</div>
-	
+		</div>
+		<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+		
+			<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.simple-calendar.js"></script>
 
 </body>
 </html>

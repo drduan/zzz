@@ -252,13 +252,15 @@ function logout() {
 												<h3 class="panel-title">学校通知</h3>
 											</div>
 											<div class="panel-body">
-												<marquee direction="up">
+												<marquee direction="up" onmouseleave="start()"
+													onmouseenter="stop()" scrolldelay="280">
 
-													<font color="#88" size="+1"> 2015年程序设计竞赛实验班报名通知<br>
-														关于中秋国庆假期调停课的通知<br> 关于2015-2016学年第一学期重修报名...<br>
-														关于统计2015届毕业生各专业（方向）核...<br> 关于做好2015-2016学年第一学期考试...<br>
-														关于组织课程开放学习及辅修专业学习...<br>
-												</marquee>
+													<font size="+1" color="#88" size="0.5"></font> <a href="#">2015年程序设计竞赛实验班报名通知</a><br>
+													<a href="#">关于中秋国庆假期调停课的通知</a><br> <a>关于2015-2016学年第一学期重修报名...</a><br>
+													<a href="#">关于统计2015届毕业生各专业（方向）核...</a> <br> <a
+														href="#">关于做好2015-2016学年第一学期考试...</a><br> <a href="#">关于组织课程开放学习及辅修专业学习...</a><br>
+												</marquee>组织课程开放学习及辅修专业学习...<br>
+											
 
 
 

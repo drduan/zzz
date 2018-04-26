@@ -14,10 +14,8 @@
 
 
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/simple-calendar.css" />
 <title>学生在线选课系统</title>
 <script type="text/javascript">
@@ -139,15 +137,15 @@
 										</div>
 										<div class="panel panel-info">
 											<div class="panel-heading">
-												<h3 class="panel-title">常用系统</h3>
+												<h3 class="panel-title">常用系统链接</h3>
 											</div>
 											<div class="panel-body">
-												<a href="#" class="btn btn-info active btn-block"
+												<a href="#" class="btn btn-info   active btn-block"
 													type="button">42</a> <a href="#"
-													class="btn active btn-block btn-default" type="button">16</a>
-												<a href="#" class="btn active btn-block btn-default"
+													class="btn  btn-block btn-default" type="button">16</a>
+												<a href="#" class="btn  btn-block btn-default"
 													type="button">教务网</a> <a href="#"
-													class="btn active btn-block btn-default" type="button">英语强化</a>
+													class="btn  btn-block btn-default" type="button">英语强化</a>
 											</div>
 
 										</div>
@@ -192,23 +190,23 @@
 										<div class="row">
 											<div class="col-md-6">
 												<ul>
-													<li>青协陪你过中秋</li>
-													<li>“中秋路边天文夜”来啦(づ￣ 3￣)づ</li>
-													<li>大学生创业中心（sovo）纳新了！</li>
-													<li>大连实干者科技有限责任公司</li>
-													<li>方舟工作室面向全校纳新</li>
-													<li>索尼公司吴永波老师-摄像主题讲座~</li>
+													<li><a href="#">青协陪你过中秋</a></li>
+													<li><a href="#">“中秋路边天文夜”来啦(づ￣ 3￣)づ</a></li>
+													<li><a href="#">大学生创业中心（sovo）纳新了！</a></li>
+													<li><a href="#">大连实干者科技有限责任公司</a></li>
+													<li><a href="#">方舟工作室面向全校纳新</a></li>
+													<li><a href="#">索尼公司吴永波老师-摄像主题讲座~</a></li>
 
 												</ul>
 											</div>
 											<div class="col-md-6">
 												<ul>
-													<li>“年轻就要不一Young”</li>
-													<li>大连东软Mac4me苹果电脑88折抢购</li>
-													<li>【抢票】中国礼仪教授第一人、“人大名嘴”金正昆做客日新讲坛</li>
-													<li>SOVO品牌管理部纳新</li>
-													<li>2015年中国电信东软合约计划</li>
-													<li>2016春季赴日留学</li>
+													<li><a href="#">“年轻就要不一Young”</a></li>
+													<li><a href="#">大连东软Mac4me苹果电脑88折抢购</a></li>
+													<li><a href="#">【抢票】中国礼仪教授第一人、“人大名嘴”金正昆做客日新讲坛</a></li>
+													<li><a href="#">SOVO品牌管理部纳新</a></li>
+													<li><a href="#">2015年中国电信东软合约计划</a></li>
+													<li><a href="#">2016春季赴日留学</a></li>
 
 												</ul>
 											</div>
@@ -263,13 +261,13 @@
 												<h3 class="panel-title">学校通知</h3>
 											</div>
 											<div class="panel-body">
-												<marquee direction="up" onmouseleave="start()" onmouseenter="stop()">
+												<marquee direction="up" onmouseleave="start()"
+													onmouseenter="stop()" scrolldelay="280">
 
-													<font color="#88" size="0.5" scrollamount= "0.1" loop="1" scrolldelay="1080" > 
-														<a href= "#">2015年程序设计竞赛实验班报名通知</a><br>
-														<a href= "#">关于中秋国庆假期调停课的通知</a><br> 关于2015-2016学年第一学期重修报名...<br>
-														<a href= "#" >关于统计2015届毕业生各专业（方向）核...</a><br> 关于做好2015-2016学年第一学期考试...<br>
-														<a href= "#">关于组织课程开放学习及辅修专业学习...</a><br>
+													<font size="+1" color="#88" size="0.5"></font> <a href="#">2015年程序设计竞赛实验班报名通知</a><br>
+													<a href="#">关于中秋国庆假期调停课的通知</a><br> <a>关于2015-2016学年第一学期重修报名...</a><br>
+													<a href="#">关于统计2015届毕业生各专业（方向）核...</a> <br> <a
+														href="#">关于做好2015-2016学年第一学期考试...</a><br> <a href="#">关于组织课程开放学习及辅修专业学习...</a><br>
 												</marquee>
 
 
