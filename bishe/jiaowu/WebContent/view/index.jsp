@@ -1,6 +1,7 @@
+<%@page import="cn.edu.neu.model.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,9 +15,10 @@
 
 
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-	<script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/simple-calendar.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/simple-calendar.css" />
 <title>学生在线选课系统</title>
 <script type="text/javascript">
 	function logout() {
@@ -83,11 +85,23 @@
 									</div>
 								</div>
 								<div class="col-md-4">
-								<div class="panel-body">
+									<div class="panel-body">
 										<ul class="nav nav-pills" style="float: right">
-													<li role="presentation"><a
-												href="${pageContext.request.contextPath}/view/ours.jsp">注銷</a></li>
+							
+											<c:choose>
+												<c:when test="${empty sessionScope['_LOGIN_USER_'].userName }">
+													<li><a href="${pageContext.request.contextPath}">
+															 请登录</a></li>
+												</c:when>
+												<c:otherwise>
+													<li><a
+														href="${pageContext.request.contextPath}/user/logout"> ${sessionScope['_LOGIN_USER_'].userName} 注銷</a></li>
+
+												</c:otherwise>
+											</c:choose>
 										</ul>
+
+
 									</div>
 								</div>
 							</div>
@@ -142,10 +156,9 @@
 											<div class="panel-body">
 												<a href="#" class="btn btn-info   active btn-block"
 													type="button">42</a> <a href="#"
-													class="btn  btn-block btn-default" type="button">16</a>
-												<a href="#" class="btn  btn-block btn-default"
-													type="button">教务网</a> <a href="#"
-													class="btn  btn-block btn-default" type="button">英语强化</a>
+													class="btn  btn-block btn-default" type="button">16</a> <a
+													href="#" class="btn  btn-block btn-default" type="button">教务网</a>
+												<a href="#" class="btn  btn-block btn-default" type="button">英语强化</a>
 											</div>
 
 										</div>
@@ -159,8 +172,8 @@
 												<li data-slide-to="2" data-target="#carousel-630680"></li>
 											</ol>
 											<div class="carousel-inner">
-												<div class="item active" >
-													<img  src="${pageContext.request.contextPath}/images/9.jpg" />
+												<div class="item active">
+													<img src="${pageContext.request.contextPath}/images/9.jpg" />
 													<div class="carousel-caption"></div>
 												</div>
 												<div class="item">
@@ -225,16 +238,16 @@
 											</div>
 											<div class="panel-body">
 												<img src="${pageContext.request.contextPath}/images/4.png"
-													width=20 height=20><a href = "#">2015-2016学期选修结束</a><br> <img
-													src="${pageContext.request.contextPath}/images/5.png"
-													width=20 height=20><a href = "#">十月一之后，学校将开启选修课程</a><br> <img
-													src="${pageContext.request.contextPath}/images/6.png"
-													width=20 height=20><a href = "#">体育选，正选结束，补选时间待定</a><br> <img
-													src="${pageContext.request.contextPath}/images/7.png"
-													width=20 height=20><a href = "#">大一新生第一次之后，重新密码</a><br> <img
-													src="${pageContext.request.contextPath}/images/8.png"
-													width=20 height=20><a href = "#">十月一之后，学校将开选修课程</a><br> 
-													<a href = "${pageContext.request.contextPath}/news/getNews">>>>更多</a>
+													width=20 height=20><a href="#">2015-2016学期选修结束</a><br>
+												<img src="${pageContext.request.contextPath}/images/5.png"
+													width=20 height=20><a href="#">十月一之后，学校将开启选修课程</a><br>
+												<img src="${pageContext.request.contextPath}/images/6.png"
+													width=20 height=20><a href="#">体育选，正选结束，补选时间待定</a><br>
+												<img src="${pageContext.request.contextPath}/images/7.png"
+													width=20 height=20><a href="#">大一新生第一次之后，重新密码</a><br>
+												<img src="${pageContext.request.contextPath}/images/8.png"
+													width=20 height=20><a href="#">十月一之后，学校将开选修课程</a><br>
+												<a href="${pageContext.request.contextPath}/news/getNews">>>>更多</a>
 
 											</div>
 
@@ -248,11 +261,11 @@
 												<div class="form-group">
 													<div class="row">
 														<div class="col-md-12">
-															<div   class="calendar-container" id="container"></div>
+															<div class="calendar-container" id="container"></div>
 														</div>
 													</div>
 												</div>
-												
+
 											</div>
 
 										</div>
@@ -301,19 +314,21 @@
 
 
 			<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-			<script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
-			<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.simple-calendar.js"></script>
+			<script
+				src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
+			<script type="text/javascript"
+				src="${pageContext.request.contextPath}/js/jquery.simple-calendar.js"></script>
 
 			<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 			<script
 				src="${pageContext.request.contextPath}/css/bootstrap/js/bootstrap.min.js"></script>
-				
-						<script type="text/javascript">
-					    $(document).ready(function(){
-				            $("#container").simpleCalendar({
-				                fixedStartDay: false
-				            });
-				        });
-					</script>
+
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$("#container").simpleCalendar({
+						fixedStartDay : false
+					});
+				});
+			</script>
 </body>
 </html>

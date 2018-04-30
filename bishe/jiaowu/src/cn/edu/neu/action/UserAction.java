@@ -1,16 +1,11 @@
 package cn.edu.neu.action;
 
-import java.io.File;
-import java.io.IOException;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -51,13 +46,16 @@ public class UserAction extends BaseAction {
 	/**
 	 * 用户登出
 	 */
-	@ResponseBody
+	// @ResponseBody
 	@RequestMapping("/logout")
-	public Map<String, String> logout() throws Exception {
+	public String logout() throws Exception {
 		getSession().invalidate();
 		Map<String, String> m = new HashMap<String, String>();
 		m.put("logout", "yes");
-		return m;
+		this.addMessage("已注销");
+		this.addRedirURL("确定", "/view/index.jsp");
+		// return m;
+		return EXECUTE_RESULT;
 	}
 
 	/**
@@ -65,8 +63,8 @@ public class UserAction extends BaseAction {
 	 */
 	@ResponseBody
 	@RequestMapping("/reg")
-	public Map<String, String> reg(HttpServletRequest request,User user) throws Exception {
-		
+	public Map<String, String> reg(HttpServletRequest request, User user) throws Exception {
+
 		System.out.println(user);
 		boolean f = this.getServMgr().getUserService().regStudent(user);
 		Map<String, String> m = new HashMap<String, String>();
@@ -88,7 +86,7 @@ public class UserAction extends BaseAction {
 		m.put("available", this.getServMgr().getUserService().checkStudentName(userName));
 		return m;
 	}
-	
+
 	/**
 	 * 管理员登录
 	 */
@@ -97,7 +95,7 @@ public class UserAction extends BaseAction {
 	public Map<String, String> adminlogin(User user, HttpSession session) {
 		System.out.println("--------" + user);
 		User dbUser = this.getServMgr().getUserService().checkAdmin(user);
-		//System.out.println(user.getUserName()+","+user.getUserPass()+"--------"+user);
+		// System.out.println(user.getUserName()+","+user.getUserPass()+"--------"+user);
 		Map<String, String> m = new HashMap<String, String>();
 		if (dbUser != null) {
 			session.setAttribute(Constants.LOGIN_USER, dbUser);
@@ -109,16 +107,13 @@ public class UserAction extends BaseAction {
 		}
 		return m;
 	}
-	
-
 
 	/**
 	 * 添加用户
 	 */
 	@ResponseBody
 	@RequestMapping("/addStudent")
-	public String addStudent(User user, HttpSession session,
-			Map<String, String> m) {
+	public String addStudent(User user, HttpSession session, Map<String, String> m) {
 		User user1 = new User();
 		user1.setUserId(this.getLoginUserId());
 
@@ -147,36 +142,35 @@ public class UserAction extends BaseAction {
 		}
 
 	}
-	
+
 	/**
 	 * 查找用户
 	 */
 	@ResponseBody
 	@RequestMapping("/getAll")
-	public String getAll( Map<String, Page<User>> m) {
+	public String getAll(Map<String, Page<User>> m) {
 		Page<User> user = this.getServMgr().getUserService().findAll();
 		m.put("user", user);
 		return "/student/manage_student";
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/deleteStudent")
 	public Map<String, Object> deleteStudent(@RequestParam String userId) {
 		Map<String, Object> m = new HashMap<String, Object>();
 		try {
 			this.getServMgr().getUserService().deleteStudent(userId);
-			m.put("delete","yes" );
+			m.put("delete", "yes");
 		} catch (Exception e) {
 			e.printStackTrace();
 			m.put("delete", "no");
 		}
 		return m;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/editStudent")
-	public String editStudent(User user, HttpSession session,
-			Map<String, String> m) {
+	public String editStudent(User user, HttpSession session, Map<String, String> m) {
 		User user1 = new User();
 		user1.setUserId(this.getLoginUserId());
 
@@ -205,7 +199,7 @@ public class UserAction extends BaseAction {
 		}
 
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/addlevMessage")
 	private Map<Object, Object> addlevMessage(LevMessage levMessage) {
