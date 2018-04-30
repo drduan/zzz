@@ -87,7 +87,10 @@ function logout() {
 						href="${pageContext.request.contextPath}/admin/course/getAdminCourse"
 						class="btn btn-default" type="button">课程信息管理</a> <a
 						href="${pageContext.request.contextPath}/admin/takecourse/getAdminTakeCourse"
-						class="btn btn-default" type="button">选课信息管理</a><br>
+						class="btn btn-default" type="button">选课信息管理</a> 
+						<a
+						href="${pageContext.request.contextPath}/admin/takecourse/updateScoreView"
+						class="btn btn-default" type="button">分数上传功能</a><br>
 					<hr>
 					<a href="${pageContext.request.contextPath}/view/index.jsp"
 						class="btn btn-default" type="button">返回到主页 </a> <a
