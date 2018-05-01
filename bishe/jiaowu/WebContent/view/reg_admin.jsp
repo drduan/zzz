@@ -85,7 +85,7 @@
 		<div class="col-md-4">
 		<div class="panel panel-info">
 				<div class="panel-heading">
-					<h3 class="modal-title text-center"">
+					<h3 class="modal-title text-center">
 						登录
 					</h3>
 				</div>

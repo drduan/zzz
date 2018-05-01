@@ -69,7 +69,7 @@ function logout() {
 		<div class="col-md-4">
 			<div class="panel panel-info">
 				<div class="panel-heading">
-					<h3 class="modal-title text-center"">欢迎你！管理员用户</h3>
+					<h3 class="modal-title text-center">欢迎你！管理员用户</h3>
 				</div>
 				<div class="panel-body">您有以下特殊权限</div>
 				<div class="panel-footer">

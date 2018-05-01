@@ -24,13 +24,15 @@
 <title>搜索课程</title>
 <script type="text/javascript">
 	function logout() {
-		$.post(getContextPath() + "${pageContext.request.contextPath}/user/logout", null, function() {
-			$("#info").html(
+		$.post(getContextPath()
+				+ "${pageContext.request.contextPath}/user/logout", null,
+				function() {
+					$("#info").html(
 
-			);
-			//显示购物车中商品数量
+					);
+					//显示购物车中商品数量
 
-		});
+				});
 	}
 </script>
 </head>
@@ -68,14 +70,20 @@
 								<div class="col-md-12">
 									<div class="panel-body">
 										<ul class="nav nav-pills">
-											<li role="presentation"><a href="${pageContext.request.contextPath}/view/index.jsp"
-												>主页</a></li>
-											<li role="presentation"><a href="${pageContext.request.contextPath}/takecourse/getTakeCourse">选课</a></li>
-											<li role="presentation"><a href="${pageContext.request.contextPath}/view/searchCourse.jsp" class="btn btn-info">搜索课程</a></li>
-										
-											<li role="presentation"><a href="${pageContext.request.contextPath}/course/getAllCourse">学校所有课程</a></li>
-											<li role="presentation"><a href="${pageContext.request.contextPath}/news/getNews">选课相关通知</a></li>
-											<li role="presentation"><a href="${pageContext.request.contextPath}/view/ours.jsp">留言区</a></li>
+											<li role="presentation"><a
+												href="${pageContext.request.contextPath}/view/index.jsp">主页</a></li>
+											<li role="presentation"><a
+												href="${pageContext.request.contextPath}/takecourse/getTakeCourse">选课</a></li>
+											<li role="presentation"><a
+												href="${pageContext.request.contextPath}/view/searchCourse.jsp"
+												class="btn btn-info">搜索课程</a></li>
+
+											<li role="presentation"><a
+												href="${pageContext.request.contextPath}/course/getAllCourse">学校所有课程</a></li>
+											<li role="presentation"><a
+												href="${pageContext.request.contextPath}/news/getNews">选课相关通知</a></li>
+											<li role="presentation"><a
+												href="${pageContext.request.contextPath}/view/ours.jsp">留言区</a></li>
 										</ul>
 									</div>
 								</div>
@@ -88,31 +96,39 @@
 												<h3 class="panel-title">个人信息</h3>
 											</div>
 											<div class="panel-body">
-												<a href="${pageContext.request.contextPath}/view/studentData.jsp" class="btn btn-default" type="button">
-													<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+												<a
+													href="${pageContext.request.contextPath}/view/studentData.jsp"
+													class="btn btn-default" type="button"> <span
+													class="glyphicon glyphicon-search" aria-hidden="true"></span>
 													<br>学生资料
-												</a> <a href="${pageContext.request.contextPath}/course/getScore?userId=${sessionScope['_LOGIN_USER_'].userId }" class="btn btn-default" type="button">
-													<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+												</a> <a
+													href="${pageContext.request.contextPath}/course/getScore?userId=${sessionScope['_LOGIN_USER_'].userId }"
+													class="btn btn-default" type="button"> <span
+													class="glyphicon glyphicon-star" aria-hidden="true"></span>
 													<br>已修学分
+												</a> </a> <a
+													href="${pageContext.request.contextPath}/course/getCourse?userId=${sessionScope['_LOGIN_USER_'].userId }"
+													class="btn btn-default" type="button"> <span
+													class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+													<br>个人课表
+												</a> <a
+													href="${pageContext.request.contextPath}/course/getCourseByClass?userId=${sessionScope['_LOGIN_USER_'].userId }"
+													class="btn btn-default" type="button"> <span
+													class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+													<br>学期课表
 												</a>
-												</a> <a href="${pageContext.request.contextPath}/course/getCourse?userId=${sessionScope['_LOGIN_USER_'].userId }" class="btn btn-default" type="button">
-													<span class="glyphicon glyphicon-th-large"
-													aria-hidden="true"></span> <br>个人课表
-												</a> 
-												 <a href="${pageContext.request.contextPath}/course/getCourseByClass?userId=${sessionScope['_LOGIN_USER_'].userId }" class="btn btn-default" type="button">
-													<span class="glyphicon glyphicon-star-empty"
-													aria-hidden="true"></span> <br>学期课表
-												</a> 
 												<c:if test="${sessionScope['_LOGIN_USER_']!=null}">
-												<a href="${pageContext.request.contextPath}/view/login_user.jsp" class="btn btn-default" type="button" onclick="logout()">
+													<a
+														href="${pageContext.request.contextPath}/view/login_user.jsp"
+														class="btn btn-default" type="button" onclick="logout()">
 
-													<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-													<br>退出系统
-												</a>
+														<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+														<br>退出系统
+													</a>
 												</c:if>
-												
-					
-					
+
+
+
 											</div>
 
 										</div>
@@ -144,24 +160,28 @@
 														</div>
 														<button type="submit" class="btn btn-default">查询</button>
 														<ul class="nav navbar-right">
-														<li class="dropdown" >
-															<a class="dropdown-toggle" href="#" data-toggle="dropdown">排序</a>
+															<li class="dropdown"><a class="dropdown-toggle"
+																href="#" data-toggle="dropdown">排序</a>
 																<ul class="dropdown-menu">
 																	<c:if test="${param.keyword!=null}">
-																	<li><a href="${pageContext.request.contextPath}/course/searchCourse?keyword=${fn:escapeXml(param.keyword)}&sort=1">按课程学分从低到高</a></li>
-																	<li><a href="${pageContext.request.contextPath}/course/searchCourse?keyword=${fn:escapeXml(param.keyword)}&sort=2">按课程学分从高到低</a></li>								
-																	
-																	
+																		<li><a
+																			href="${pageContext.request.contextPath}/course/searchCourse?keyword=${fn:escapeXml(param.keyword)}&sort=1">按课程学分从低到高</a></li>
+																		<li><a
+																			href="${pageContext.request.contextPath}/course/searchCourse?keyword=${fn:escapeXml(param.keyword)}&sort=2">按课程学分从高到低</a></li>
+
+
 																	</c:if>
 																	<c:if test="${param.keyword==null}">
-																	<li><a href="${pageContext.request.contextPath}/course/searchCourse?keyword=${fn:escapeXml(param.keyword)}&sort=1">按课程学分从低到高</a></li>
-																	<li><a href="${pageContext.request.contextPath}/course/searchCourse?keyword=${fn:escapeXml(param.keyword)}&sort=2">按课程学分从高到低</a></li>								
-																	
-																	
+																		<li><a
+																			href="${pageContext.request.contextPath}/course/searchCourse?keyword=${fn:escapeXml(param.keyword)}&sort=1">按课程学分从低到高</a></li>
+																		<li><a
+																			href="${pageContext.request.contextPath}/course/searchCourse?keyword=${fn:escapeXml(param.keyword)}&sort=2">按课程学分从高到低</a></li>
+
+
 																	</c:if>
 																</ul>
-																<li class="col-md-2"></li>
-												</ul>
+															<li class="col-md-2"></li>
+														</ul>
 													</form>
 
 												</h3>
@@ -175,47 +195,48 @@
 												<div class="panel-body">
 
 													<c:if test="${!empty searchCourse }">
-												<table class="table table-bordered">
-												
-													<thead>
-													<c:if test="${!empty searchCourse.list }">
-														<tr class="info">
-															<th>课程名&nbsp;</th>
-															<th>课程学期&nbsp;</th>
-															<th>课程专业&nbsp;</th>
-															<th>课程学分&nbsp;</th>
-															<th>课程时间&nbsp;</th>
-															<th>课程周次&nbsp;</th>
-															<th>课程教师&nbsp;</th>
-															<th>课程地点&nbsp;</th>											
-														</tr>
-														</c:if>
-													</thead>
-													
-													<tbody>
-													<c:forEach items="${searchCourse.list}" var="g" varStatus="vs">
-														<tr >
-															<td>${g.courseName}</td>
-															<td>${g.courseClass}</td>
-															<td>${g.courseRecord}</td>
-															<td>${g.courseScore}</td>
-															<td>${g.courseTime}</td>
-															<td>${g.courseWeek}</td>
-															<td>${g.courseTeacher}</td>
-															<td>${g.courseWhere}</td>
-														</tr>
-														</c:forEach>
+														<table class="table table-bordered">
 
-													</tbody>
-												</table>
-												</c:if>
-												<br>
-												<br>
-												<center><c:if test="${empty searchCourse.list }">搜索课程为空</c:if></center>
-												<br>
-												<br>
-												
-												
+															<thead>
+																<c:if test="${!empty searchCourse.list }">
+																	<tr class="info">
+																		<th>课程名&nbsp;</th>
+																		<th>课程学期&nbsp;</th>
+																		<th>课程专业&nbsp;</th>
+																		<th>课程学分&nbsp;</th>
+																		<th>课程时间&nbsp;</th>
+																		<th>课程周次&nbsp;</th>
+																		<th>课程教师&nbsp;</th>
+																		<th>课程地点&nbsp;</th>
+																	</tr>
+																</c:if>
+															</thead>
+
+															<tbody>
+																<c:forEach items="${searchCourse.list}" var="g"
+																	varStatus="vs">
+																	<tr>
+																		<td>${g.courseName}</td>
+																		<td>${g.courseClass}</td>
+																		<td>${g.courseRecord}</td>
+																		<td>${g.courseScore}</td>
+																		<td>${g.courseTime}</td>
+																		<td>${g.courseWeek}</td>
+																		<td>${g.courseTeacher}</td>
+																		<td>${g.courseWhere}</td>
+																	</tr>
+																</c:forEach>
+
+															</tbody>
+														</table>
+													</c:if>
+													<br> <br>
+													<div style="align-content: center">
+														<c:if test="${empty searchCourse.list }">搜索课程为空</c:if>
+													</div>
+													<br> <br>
+
+
 												</div>
 
 											</div>
@@ -286,7 +307,7 @@
 						<div class="col-md-12">
 							<div class="panel panel-info">
 								<div class="panel-heading">
-									<h3 class="panel-title">学生在线选课系统 </h3>
+									<h3 class="panel-title">学生在线选课系统</h3>
 								</div>
 
 							</div>

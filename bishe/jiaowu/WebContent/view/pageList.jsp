@@ -54,7 +54,7 @@
 </c:if>
 <c:if test="${rowCount != 0}">
 
-	<table align="center">
+	<table style="align-content: center">
 		<tr>
 			<td><c:if test="${(pageCount <= 11)}">
 					<c:set var="startPage" value="1" />
