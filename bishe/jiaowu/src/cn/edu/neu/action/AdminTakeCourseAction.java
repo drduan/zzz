@@ -1,6 +1,7 @@
 package cn.edu.neu.action;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.neu.core.common.Page;
+import cn.edu.neu.core.util.Email;
 import cn.edu.neu.core.util.ReadExceTool;
 import cn.edu.neu.model.StudentScore;
 import cn.edu.neu.model.TakeCourse;
@@ -40,8 +42,32 @@ public class AdminTakeCourseAction extends BaseAction {
 		try {
 			String[] sts = tool.readExcelTitle(excel.getInputStream(), excel.getOriginalFilename());
 			Map<Integer, String> map = tool.readExcelContent(excel.getInputStream(), excel.getOriginalFilename());
-		
-			System.out.println(map.get(1));
+
+			for (Integer i : map.keySet()) {
+				if (i == 0) {
+					continue;
+				}
+				System.out.println(i + map.get(i));
+
+				String string = map.get(i);
+				String[] strings = string.split("    ");
+				log.debug(strings.length);
+				StudentScore score = new StudentScore();
+
+				score.setSbm(ksbm);
+				score.setSname(strings[0]);
+				score.setSno(strings[1]);
+				score.setS_score(new BigDecimal(strings[2]));
+				score.setLrname(strings[3]);
+				System.out.println(score.toString());
+				this.getServMgr().getTakeCourseService().saveScore(score);
+			}
+
+			if (notify) {
+//			for(	Email email:) {
+//				
+//			}
+			}
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

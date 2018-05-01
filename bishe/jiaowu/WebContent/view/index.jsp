@@ -95,7 +95,7 @@
 												</c:when>
 												<c:otherwise>
 													<li><a
-														href="${pageContext.request.contextPath}/user/logout"> ${sessionScope['_LOGIN_USER_'].userName} 注銷</a></li>
+														href="${pageContext.request.contextPath}/user/logout"> ${sessionScope['_LOGIN_USER_'].userName} 注销</a></li>
 
 												</c:otherwise>
 											</c:choose>

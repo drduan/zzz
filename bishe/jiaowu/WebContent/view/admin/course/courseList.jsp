@@ -111,22 +111,25 @@ h3#nav7 {
 												href="${pageContext.request.contextPath}/admin/teacher/getAdminTeacher">教师用户管理</a></li>
 											<li role="presentation"><a
 												href="${pageContext.request.contextPath}/admin/user/getAdminStudent">学生用户管理</a></li>
-
 											<li role="presentation"><a
 												href="${pageContext.request.contextPath}/admin/course/getAdminCourse"
 												class="btn btn-info">课程管理</a></li>
-												<li role="presentation"><a
+											<li role="presentation"><a
+												href="${pageContext.request.contextPath}/admin/user/queryLevMessage"
+												class="btn">留言管理</a></li>
+											<li role="presentation"><a
 												href="${pageContext.request.contextPath}/admin/takecourse/getAdminTakeCourse">选课课程管理</a></li>
 											<li role="presentation"><a href="#" onclick="logout()">退出系统</a></li>
-											<div class="collapse navbar-collapse"
-												id="bs-example-navbar-collapse-1">
+										</ul>
+										<div class="collapse navbar-collapse"
+											id="bs-example-navbar-collapse-1">
 
-												<form class="navbar-form navbar-right" role="search">
+											<form class="navbar-form navbar-right" role="search">
 
 
-												</form>
+											</form>
 
-											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -147,30 +150,30 @@ h3#nav7 {
 																action="${pageContext.request.contextPath}/admin/course/getAdminCourse">
 
 																<div class="col-md-5">
-																<div class="form-group">
-																	<label for="userId"> 学生名</label> <select
-																		class="form-control input-sm" name="userId"
-																		id="userId">
-																		<option value="0">---所有学生用户---</option>
-																		<c:forEach items="${user }" var="c">
-																			<option value="${c.userId }"
-																				${param.userId==c.userId?'selected':''}>${fn:escapeXml(c.userName) }</option>
-																		</c:forEach>
-																	</select>
-																</div>
+																	<div class="form-group">
+																		<label for="userId"> 学生名</label> <select
+																			class="form-control input-sm" name="userId"
+																			id="userId">
+																			<option value="0">---所有学生用户---</option>
+																			<c:forEach items="${user }" var="c">
+																				<option value="${c.userId }"
+																					${param.userId==c.userId?'selected':''}>${fn:escapeXml(c.userName) }</option>
+																			</c:forEach>
+																		</select>
+																	</div>
 																</div>
 																<div class="col-md-7">
-																<div class="form-group">
-																	<label for="courseName"> 课程名</label> <input
-																		class="form-control input-sm" name="courseName"
-																		id="courseName" value="${param.courseName}"
-																		type="text" placeholder="课程名" />
-																</div>
-																<button class="btn btn-info btn-sm" type="submit">搜索</button>
+																	<div class="form-group">
+																		<label for="courseName"> 课程名</label> <input
+																			class="form-control input-sm" name="courseName"
+																			id="courseName" value="${param.courseName}"
+																			type="text" placeholder="课程名" />
+																	</div>
+																	<button class="btn btn-info btn-sm" type="submit">搜索</button>
 																</div>
 															</form>
 														</div>
-														
+
 													</div>
 												</div>
 												<div class="panel-body">
@@ -262,7 +265,7 @@ h3#nav7 {
 							<div class="col-md-12">
 								<div class="panel panel-info">
 									<div class="panel-heading">
-										<h3 class="panel-title">学生在线选课系统 </h3>
+										<h3 class="panel-title">学生在线选课系统</h3>
 									</div>
 
 								</div>

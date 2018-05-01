@@ -5,26 +5,32 @@
 
 	<!-- 实体类,简称 -设置别名 -->
 	<typeAliases>
+		<typeAlias alias="StudentScore"
+			type="cn.edu.neu.model.StudentScore" />
+		<typeAlias alias="MailBean" type="cn.edu.neu.model.MailBean" />
 		<typeAlias alias="User" type="cn.edu.neu.model.User" />
 		<typeAlias alias="Teacher" type="cn.edu.neu.model.Teacher" />
 		<typeAlias alias="Course" type="cn.edu.neu.model.Course" />
-		<typeAlias alias="TakeCourse" type="cn.edu.neu.model.TakeCourse" />
+		<typeAlias alias="TakeCourse"
+			type="cn.edu.neu.model.TakeCourse" />
 		<typeAlias alias="Where" type="cn.edu.neu.model.Where" />
-		<typeAlias alias="SuccessTakeCourse" type="cn.edu.neu.model.SuccessTakeCourse" />
+		<typeAlias alias="SuccessTakeCourse"
+			type="cn.edu.neu.model.SuccessTakeCourse" />
 		<typeAlias alias="News" type="cn.edu.neu.model.News" />
-		<typeAlias alias="LevMessage" type="cn.edu.neu.model.LevMessage" />
+		<typeAlias alias="LevMessage"
+			type="cn.edu.neu.model.LevMessage" />
 
-		
 
-		
+
+
 	</typeAliases>
 
-	<plugins>  
-       <plugin interceptor="cn.edu.neu.core.common.PageInterceptor">  
-           <property name="databaseType" value="mysql"/>  
-       </plugin>  
-    </plugins>  
-	
+	<plugins>
+		<plugin interceptor="cn.edu.neu.core.common.PageInterceptor">
+			<property name="databaseType" value="mysql" />
+		</plugin>
+	</plugins>
+
 
 	<!-- 实体接口映射资源 -->
 	<!-- 说明：如果xxMapper.xml配置文件放在和xxMapper.java统一目录下，mappers也可以省略，因为org.mybatis.spring.mapper.MapperFactoryBean默认会去查找与xxMapper.java相同目录和名称的xxMapper.xml -->
@@ -34,8 +40,9 @@
 		<mapper resource="cn/edu/neu/mapper/CourseMapper.xml" />
 		<mapper resource="cn/edu/neu/mapper/TakeCourseMapper.xml" />
 		<mapper resource="cn/edu/neu/mapper/NewsMapper.xml" />
+		<mapper resource="cn/edu/neu/mapper/ScoreMapper.xml" />
 		<mapper resource="cn/edu/neu/mapper/LevMessageMapper.xml" />
-		
+
 	</mappers>
 
 </configuration>  

@@ -112,43 +112,43 @@
 
 										<input type="hidden" id="takecourseId" name="takecourseId"
 											value="${empty takecourse.takecourseId?0:takecourse.takecourseId}" />
-						
-										
+
+
 										<div class="form-group">
 											<label for="takecourseName"> 选课课程名 </label> <input
-												class="form-control" name="takecourseName" id="takecourseName"
-												value="${takecourse.takecourseName}" type="text" placeholder="选课课程名"
-												required />
+												class="form-control" name="takecourseName"
+												id="takecourseName" value="${takecourse.takecourseName}"
+												type="text" placeholder="选课课程名" required />
 										</div>
 										<div class="form-group">
 											<label for="takecourseClass"> 选课课程学期 </label> <input
-												class="form-control" name="takecourseClass" id="takecourseClass"
-												value="${takecourse.takecourseClass}" type="text" placeholder="选课课程学期"
-												required />
+												class="form-control" name="takecourseClass"
+												id="takecourseClass" value="${takecourse.takecourseClass}"
+												type="text" placeholder="选课课程学期" required />
 										</div>
 										<div class="form-group">
 											<label for="takecourseRecord"> 选课课程专业</label> <input
-												class="form-control" name="takecourseRecord" id="takecourseRecord"
-												value="${takecourse.takecourseRecord}" type="text" placeholder="选课课程专业"
-												required />
+												class="form-control" name="takecourseRecord"
+												id="takecourseRecord" value="${takecourse.takecourseRecord}"
+												type="text" placeholder="选课课程专业" required />
 										</div>
 										<div class="form-group">
 											<label for="takecourseScore"> 选课课程学分</label> <input
-												class="form-control" name="takecourseScore" id="takecourseScore"
-												value="${takecourse.takecourseScore}" type="text" placeholder="选课学分"
-												required />
+												class="form-control" name="takecourseScore"
+												id="takecourseScore" value="${takecourse.takecourseScore}"
+												type="text" placeholder="选课学分" required />
 										</div>
 										<div class="form-group">
 											<label for="takecourseTime"> 选课课程时间</label> <input
-												class="form-control" name="takecourseTime" id="takecourseTime"
-												value="${takecourse.takecourseTime}" type="text" placeholder="选课课程时间"
-												required />
+												class="form-control" name="takecourseTime"
+												id="takecourseTime" value="${takecourse.takecourseTime}"
+												type="text" placeholder="选课课程时间" required />
 										</div>
 										<div class="form-group">
 											<label for="takecourseWeek"> 周次</label> <input
-												class="form-control" name="takecourseWeek" id="takecourseWeek"
-												value="${takecourse.takecourseWeek}" type="text" placeholder="选课课程周次"
-												required />
+												class="form-control" name="takecourseWeek"
+												id="takecourseWeek" value="${takecourse.takecourseWeek}"
+												type="text" placeholder="选课课程周次" required />
 										</div>
 
 										<button class="btn btn-primary" type="submit">确定</button>

@@ -5,14 +5,28 @@
 <mapper namespace="cn.edu.neu.mapper.ScoreMapper">
 
 	<insert id="saveNews" parameterType="StudentScore">
-		insert into t_score
-		values(null,#{newsName},#{newsText},#{newsPic}
+		insert into
+		t_score(c_id,s_no,s_id,s_score,s_name,s_desc)
+		values(null,#{sno},#{sbm},#{s_score},#{sname},#{lrname})
 	</insert>
+	<delete id="removeNews" parameterType="StudentScore">
+		delete from t_score where
+		id = #{sno}
+	</delete>
 
-	<select id="saveNews" resultType="StudentScore">
-		select * from t_score
-
+	<select id="findAll" resultType="StudentScore">
+		select
+		c_id,s_no,s_id,s_score,s_name,s_desc from t_score
 	</select>
+	<select id="findAllForMail" resultType="MailBean">
+	select
+	group_concat(t.c_id,t.s_no,t.s_id,t.s_score,t.s_desc) as text ,t.s_name as title ,s.s_mail as tol from t_score t
+	left join t_student s on s.s_no = replace(t.s_no,'.0','')
+	group by s.s_mail,t.s_name
+		
+	</select>
+
+
 
 
 </mapper>

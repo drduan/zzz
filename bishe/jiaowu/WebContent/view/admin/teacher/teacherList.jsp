@@ -108,25 +108,29 @@ h3#nav7 {
 									<div class="panel-body">
 										<ul class="nav nav-pills">
 											<li role="presentation"><a
-												href="${pageContext.request.contextPath}/admin/teacher/getAdminTeacher" class="btn btn-info">教师用户管理</a></li>
+												href="${pageContext.request.contextPath}/admin/teacher/getAdminTeacher"
+												class="btn btn-info">教师用户管理</a></li>
 											<li role="presentation"><a
 												href="${pageContext.request.contextPath}/admin/user/getAdminStudent">学生用户管理</a></li>
 
 											<li role="presentation"><a
-												href="${pageContext.request.contextPath}/admin/course/getAdminCourse"
-												>课程管理</a></li>
-												<li role="presentation"><a
+												href="${pageContext.request.contextPath}/admin/course/getAdminCourse">课程管理</a></li>
+											<li role="presentation"><a
+												href="${pageContext.request.contextPath}/admin/user/queryLevMessage"
+												class="btn">留言管理</a></li>
+											<li role="presentation"><a
 												href="${pageContext.request.contextPath}/admin/takecourse/getAdminTakeCourse">选课课程管理</a></li>
 											<li role="presentation"><a href="#" onclick="logout()">退出系统</a></li>
-											<div class="collapse navbar-collapse"
-												id="bs-example-navbar-collapse-1">
+										</ul>
+										<div class="collapse navbar-collapse"
+											id="bs-example-navbar-collapse-1">
 
-												<form class="navbar-form navbar-right" role="search">
+											<form class="navbar-form navbar-right" role="search">
 
 
-												</form>
+											</form>
 
-											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -146,22 +150,20 @@ h3#nav7 {
 																method="post"
 																action="${pageContext.request.contextPath}/admin/teacher/getAdminTeacher">
 
-																
+
 																<div class="col-md-7">
-																<div class="form-group">
-																	<label for="teacherName"> 选课课程教师名</label> <input
-																		class="form-control input-sm" name="teacherName"
-																		id="teacherName" value="${param.teacherName}"
-																		type="text" placeholder="选课课程教师名" />
-																</div>
-																<div class="col-md-5">
-																
-																</div>
-																<button class="btn btn-info btn-sm" type="submit">搜索</button>
+																	<div class="form-group">
+																		<label for="teacherName"> 选课课程教师名</label> <input
+																			class="form-control input-sm" name="teacherName"
+																			id="teacherName" value="${param.teacherName}"
+																			type="text" placeholder="选课课程教师名" />
+																	</div>
+																	<div class="col-md-5"></div>
+																	<button class="btn btn-info btn-sm" type="submit">搜索</button>
 																</div>
 															</form>
 														</div>
-														
+
 													</div>
 												</div>
 												<div class="panel-body">
@@ -240,7 +242,7 @@ h3#nav7 {
 							<div class="col-md-12">
 								<div class="panel panel-info">
 									<div class="panel-heading">
-										<h3 class="panel-title">学生在线选课系统 </h3>
+										<h3 class="panel-title">学生在线选课系统</h3>
 									</div>
 
 								</div>

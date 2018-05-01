@@ -110,15 +110,19 @@ h3#nav7 {
 											<li role="presentation"><a
 												href="${pageContext.request.contextPath}/admin/teacher/getAdminTeacher">教师用户管理</a></li>
 											<li role="presentation"><a
-												href="${pageContext.request.contextPath}/admin/user/getAdminStudent" class="btn btn-info">学生用户管理</a></li>
+												href="${pageContext.request.contextPath}/admin/user/getAdminStudent"
+												class="btn btn-info">学生用户管理</a></li>
 
 											<li role="presentation"><a
-												href="${pageContext.request.contextPath}/admin/course/getAdminCourse"
-												>课程管理</a></li>
-												<li role="presentation"><a
+												href="${pageContext.request.contextPath}/admin/course/getAdminCourse">课程管理</a></li>
+											<li role="presentation"><a
+												href="${pageContext.request.contextPath}/admin/user/queryLevMessage"
+												class="btn">留言管理</a></li>
+											<li role="presentation"><a
 												href="${pageContext.request.contextPath}/admin/takecourse/getAdminTakeCourse">选课课程管理</a></li>
+
 											<li role="presentation"><a href="#" onclick="logout()">退出系统</a></li>
-											</ul>
+										</ul>
 									</div>
 								</div>
 							</div>
@@ -139,7 +143,7 @@ h3#nav7 {
 																action="${pageContext.request.contextPath}/admin/user/getAdminStudent">
 
 																<div class="col-md-7">
-																<%-- <div class="form-group">
+																	<%-- <div class="form-group">
 																	<label for="userId"> 学生名</label> <select
 																		class="form-control input-sm" name="userId"
 																		id="userId">
@@ -150,20 +154,18 @@ h3#nav7 {
 																		</c:forEach>
 																	</select>
 																</div> --%>
-																<div class="form-group">
-																	<label for="userName"> 学生用户名</label> <input
-																		class="form-control input-sm" name="userName"
-																		id="userName" value="${param.userName}"
-																		type="text" placeholder="学生用户名" />
+																	<div class="form-group">
+																		<label for="userName"> 学生用户名</label> <input
+																			class="form-control input-sm" name="userName"
+																			id="userName" value="${param.userName}" type="text"
+																			placeholder="学生用户名" />
+																	</div>
+																	<button class="btn btn-info btn-sm" type="submit">搜索</button>
 																</div>
-																<button class="btn btn-info btn-sm" type="submit">搜索</button>
-																</div>
-																<div class="col-md-5">
-																
-																</div>
+																<div class="col-md-5"></div>
 															</form>
 														</div>
-														
+
 													</div>
 												</div>
 												<div class="panel-body">
@@ -227,39 +229,39 @@ h3#nav7 {
 												</div>
 											</div>
 
-									
-								</div>
-								<div class="col-md-3">
-									<br> <br> <br> <br> <br> <br> <br>
-									<br> <br> <br> <br> <br> <br> <br>
-									<br> <br> <br> <br> <br> <br>
-								</div>
 
-								<div class="container-fluid"></div>
-							</div>
-							<div class="col-md-3">
-								<br> <br> <br> <br> <br> <br> <br>
-								<br> <br> <br> <br> <br> <br> <br>
-								<br> <br> <br> <br> <br> <br>
-							</div>
+										</div>
+										<div class="col-md-3">
+											<br> <br> <br> <br> <br> <br> <br>
+											<br> <br> <br> <br> <br> <br> <br>
+											<br> <br> <br> <br> <br> <br>
+										</div>
 
-						</div>
-					</div>
-				</div>
-
-				<div class="container-fluid">
-					<div class="row">
-						<div class="modal-title text-center">
-							<div class="col-md-12">
-								<div class="panel panel-info">
-									<div class="panel-heading">
-										<h3 class="panel-title">学生在线选课系统 </h3>
+										<div class="container-fluid"></div>
+									</div>
+									<div class="col-md-3">
+										<br> <br> <br> <br> <br> <br> <br>
+										<br> <br> <br> <br> <br> <br> <br>
+										<br> <br> <br> <br> <br> <br>
 									</div>
 
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
+
+						<div class="container-fluid">
+							<div class="row">
+								<div class="modal-title text-center">
+									<div class="col-md-12">
+										<div class="panel panel-info">
+											<div class="panel-heading">
+												<h3 class="panel-title">学生在线选课系统</h3>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 </body>
 </html>
