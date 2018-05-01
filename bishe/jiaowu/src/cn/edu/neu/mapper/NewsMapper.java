@@ -7,11 +7,13 @@ import cn.edu.neu.model.News;
 
 public interface NewsMapper {
 
-	 List<News> findNewsBySearchKeyword(Page<News> page);
-	 
-	 void saveNews(News news);
-	 
-	 void removeNews(String newsId);
-	 List<News> findNews(Page<News> page);
-	 News findNewsDetailById(String newsId);
+	List<News> findNewsBySearchKeyword(Page<News> page);
+
+	void saveNews(News news);
+
+	void removeNews(String newsId);
+
+	List<News> findNews(Page<News> page);
+
+	News findNewsDetailById(String newsId);
 }

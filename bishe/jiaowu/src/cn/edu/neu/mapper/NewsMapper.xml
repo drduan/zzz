@@ -4,53 +4,42 @@
 <!-- namespace：必须与对应的接口全类名一致 id:必须与对应接口的某个对应的方法名一致 -->
 <mapper namespace="cn.edu.neu.mapper.NewsMapper">
 
-	
-	
+
+
 	<insert id="saveNews" parameterType="News">
 		insert into t_news
 		values(null,#{newsName},#{newsText},#{newsPic}
 	</insert>
-	
+
 	<delete id="removeNews" parameterType="News">
 		delete from t_news where
 		n_id=#{newsId}
 	</delete>
-	
-	
-	
-	
-	
-<!-- 
-	<resultMap type="News" id="NewsResultMap">
-		<id property="newsId" column="newsId" />
-		<result property="newsName" column="newsName" />
-		<result property="newsText" column="newsText" />
-		<result property="newsPic" column="newsPic" />
-		
-	</resultMap> -->
-	<!-- <select id="findNewsBySearchKeyword" resultMap="newsResultMap">
-		select n_id newsId,n_name newsName,n_text
-		newsText,n_pic newsPic from
-		t_news
-		<where>
-			 <if test="params.newsNames!=null ">
-			   <foreach item="item" index="index" collection="params.newsNames"  >
-		        and n_name like CONCAT(CONCAT('%', #{params.newsNames[${index}]}), '%') 
-		      </foreach>
-		      </if>
-			
-		</where>
-		
-	</select> -->
-	
+
+
+
+
+
+	<!-- <resultMap type="News" id="NewsResultMap"> <id property="newsId" column="newsId" 
+		/> <result property="newsName" column="newsName" /> <result property="newsText" 
+		column="newsText" /> <result property="newsPic" column="newsPic" /> </resultMap> -->
+	<!-- <select id="findNewsBySearchKeyword" resultMap="newsResultMap"> select 
+		n_id newsId,n_name newsName,n_text newsText,n_pic newsPic from t_news <where> 
+		<if test="params.newsNames!=null "> <foreach item="item" index="index" collection="params.newsNames" 
+		> and n_name like CONCAT(CONCAT('%', #{params.newsNames[${index}]}), '%') 
+		</foreach> </if> </where> </select> -->
+
 	<select id="findNews" parameterType="int" resultType="News">
-		select n_id newsId,n_name newsName from
+		select n_id
+		newsId,n_name newsName from
 		t_news
 	</select>
 	<select id="findNewsDetailById" resultType="News">
-		select n_id newsId,n_name newsName,n_text
+		select n_id
+		newsId,n_name newsName,n_text
 		newsText,n_pic newsPic from
-		t_news where n_id=#{news.newsId}
+		t_news where
+		n_id=#{news.newsId}
 	</select>
-	
+
 </mapper>

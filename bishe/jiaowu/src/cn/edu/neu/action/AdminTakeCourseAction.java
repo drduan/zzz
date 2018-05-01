@@ -1,16 +1,21 @@
 package cn.edu.neu.action;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.neu.core.common.Page;
+import cn.edu.neu.core.util.ReadExceTool;
+import cn.edu.neu.model.StudentScore;
 import cn.edu.neu.model.TakeCourse;
 import cn.edu.neu.model.Teacher;
 
@@ -27,20 +32,38 @@ public class AdminTakeCourseAction extends BaseAction {
 	}
 
 	@RequestMapping("/updateScore")
-	public String updateScore(@RequestParam(required = false) MultipartFile excel, Map<String, Object> m) {
+	public String updateScore(@RequestParam(required = false) MultipartFile excel, String ksbm, Boolean notify,
+			Map<String, Object> m) {
+		System.out.println(excel.getName());
+
+		ReadExceTool tool = new ReadExceTool();
+		try {
+			String[] sts = tool.readExcelTitle(excel.getInputStream(), excel.getOriginalFilename());
+			Map<Integer, String> map = tool.readExcelContent(excel.getInputStream(), excel.getOriginalFilename());
+		
+			System.out.println(map.get(1));
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// Page<TakeCourse> takecourse =
 		// this.getServMgr().getTakeCourseService().getAdminSearchTakeCourse(takecourseName);
 		// m.put("takecourse", takecourse);
 		// System.out.println(takecourse);
-		return "/admin/takecourse/updateScore";
+		this.addMessage("操作录入成绩成功");
+		this.addRedirURL("返回", "/admin/takecourse/updateScoreView");
+		return EXECUTE_RESULT;
+
 	}
-	
+
 	@RequestMapping("/updateScoreView")
 	public String updateScore(Map<String, Object> m) {
 		// Page<TakeCourse> takecourse =
 		// this.getServMgr().getTakeCourseService().getAdminSearchTakeCourse(takecourseName);
 		// m.put("takecourse", takecourse);
 		// System.out.println(takecourse);
+
 		return "/admin/takecourse/updateScoreView";
 	}
 
