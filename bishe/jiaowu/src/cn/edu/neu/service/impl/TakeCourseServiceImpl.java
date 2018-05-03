@@ -12,6 +12,7 @@ import cn.edu.neu.core.common.Page;
 import cn.edu.neu.mapper.ScoreMapper;
 import cn.edu.neu.mapper.TakeCourseMapper;
 import cn.edu.neu.model.Course;
+import cn.edu.neu.model.MailBean;
 import cn.edu.neu.model.StudentScore;
 import cn.edu.neu.model.SuccessTakeCourse;
 import cn.edu.neu.model.TakeCourse;
@@ -152,6 +153,12 @@ public class TakeCourseServiceImpl implements TakeCourseService {
 	public void saveScore(StudentScore score) {
 		// TODO Auto-generated method stub
 		smapper.saveNews(score);
+	}
+
+	@Override
+	public List<MailBean> findAllForMail() {
+		// TODO Auto-generated method stub
+		return smapper.findAllForMail();
 	}
 
 }

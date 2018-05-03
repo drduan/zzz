@@ -20,8 +20,9 @@
 	</select>
 	<select id="findAllForMail" resultType="MailBean">
 	select
-	group_concat(t.c_id,t.s_no,t.s_id,t.s_score,t.s_desc) as text ,t.s_name as title ,s.s_mail as tol from t_score t
+	group_concat(t.c_id,t.s_no,t.s_id,t.s_score,t.s_desc) as context ,t.s_name as title ,s.s_mail as tol from t_score t
 	left join t_student s on s.s_no = replace(t.s_no,'.0','')
+	where s.s_mail is not null
 	group by s.s_mail,t.s_name
 		
 	</select>

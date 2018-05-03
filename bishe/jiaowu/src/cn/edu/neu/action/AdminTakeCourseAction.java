@@ -7,16 +7,26 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.core.task.TaskExecutor;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sun.org.apache.xpath.internal.operations.And;
+
 import cn.edu.neu.core.common.Page;
 import cn.edu.neu.core.util.Email;
 import cn.edu.neu.core.util.ReadExceTool;
+import cn.edu.neu.model.MailBean;
 import cn.edu.neu.model.StudentScore;
 import cn.edu.neu.model.TakeCourse;
 import cn.edu.neu.model.Teacher;
@@ -24,6 +34,10 @@ import cn.edu.neu.model.Teacher;
 @Controller
 @RequestMapping("/admin/takecourse")
 public class AdminTakeCourseAction extends BaseAction {
+	@Autowired
+	private JavaMailSender mailSender;
+	@Resource
+	private TaskExecutor taskExecutor;
 
 	@RequestMapping("/getAdminTakeCourse")
 	public String getAdminTakeCourse(@RequestParam(required = false) String takecourseName, Map<String, Object> m) {
@@ -34,8 +48,8 @@ public class AdminTakeCourseAction extends BaseAction {
 	}
 
 	@RequestMapping("/updateScore")
-	public String updateScore(@RequestParam(required = false) MultipartFile excel, String ksbm, Boolean notify,
-			Map<String, Object> m) {
+	public String updateScore(@RequestParam(required = false) MultipartFile excel, String ksbm,
+			@RequestParam(required = false) Boolean notify, Map<String, Object> m) {
 		System.out.println(excel.getName());
 
 		ReadExceTool tool = new ReadExceTool();
@@ -59,14 +73,39 @@ public class AdminTakeCourseAction extends BaseAction {
 				score.setSno(strings[1]);
 				score.setS_score(new BigDecimal(strings[2]));
 				score.setLrname(strings[3]);
-				System.out.println(score.toString());
+
 				this.getServMgr().getTakeCourseService().saveScore(score);
 			}
 
-			if (notify) {
-//			for(	Email email:) {
-//				
-//			}
+			if (notify != null && notify) {
+
+				for (MailBean email : this.getServMgr().getTakeCourseService().findAllForMail()) {
+					// Email mm = (Email) context.getBean("email");
+
+					// ApplicationContext context = new AnnotationConfigApplicationContext(
+					// Email.class);
+					try {
+						taskExecutor.execute(new Runnable() {
+							@Override
+							public void run() {
+								SimpleMailMessage _email = new SimpleMailMessage();
+								_email.setSubject(email.getTitle()); // 设置邮件主题
+								_email.setTo(email.getTol()); // 设定收件人
+								_email.setText(email.getContext()); // 设置邮件主题内容
+
+								// sends the e-mail
+								mailSender.send(_email);
+								System.out.println("finished");
+								// new Email().sendMail(email);
+								// MailSenderService service = (MailSenderService) context
+								// .getBean("mailSenderService");
+							}
+						});
+					} catch (Exception e) {
+						System.err.println(e.getMessage());
+					}
+
+				}
 			}
 
 		} catch (IOException e) {

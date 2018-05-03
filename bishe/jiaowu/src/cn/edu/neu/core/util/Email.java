@@ -2,25 +2,28 @@ package cn.edu.neu.core.util;
 
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.stereotype.Service;
 
+import cn.edu.neu.model.MailBean;
+
+@Service("email")
 public class Email {
 
+	
 	private MailSender mailSender;
+
 	private SimpleMailMessage simpleMailMessage;
 
-	public void send(SimpleMailMessage mail) {
-		mailSender.send(mail);
-	}
+	public void sendMail(MailBean bean) {
 
-	// SimpleMailMessage mail = new SimpleMailMessage();
-	// mail.setFrom(from);
-	// mail.setTo(to);
-	// mail.setSubject("这是测试邮件，请勿回复！");
-	// mail.setSentDate(new Date());// 邮件发送时间
-	// mail.setText("这是一封测试邮件。如果您已收到此邮件，说明您的邮件服务器已设置成功。请勿回复，请勿回复，请勿回复，重要的事说三遍！");
-	// JavaMailSenderImpl sender =
-	// createMailSender(host,port,username,password,25000);
-	// sender.send(mail);
+		System.out.println(bean.toString());
+		// simpleMailMessage = new SimpleMailMessage();
+
+		simpleMailMessage.setSubject(bean.getTitle()); // 设置邮件主题
+		simpleMailMessage.setTo(bean.getTol()); // 设定收件人
+		simpleMailMessage.setText(bean.getContext()); // 设置邮件主题内容
+		mailSender.send(simpleMailMessage); // 发送邮件
+	}
 
 	public MailSender getMailSender() {
 		return mailSender;
@@ -37,5 +40,7 @@ public class Email {
 	public void setSimpleMailMessage(SimpleMailMessage simpleMailMessage) {
 		this.simpleMailMessage = simpleMailMessage;
 	}
+	
+	
 
 }

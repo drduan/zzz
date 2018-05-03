@@ -6,6 +6,7 @@ import java.util.List;
 
 import cn.edu.neu.core.common.Page;
 import cn.edu.neu.model.Course;
+import cn.edu.neu.model.MailBean;
 import cn.edu.neu.model.StudentScore;
 import cn.edu.neu.model.SuccessTakeCourse;
 import cn.edu.neu.model.TakeCourse;
@@ -29,6 +30,8 @@ public interface TakeCourseService {
 	String[] getTakeCourseTeacherIds(String takecourseId);
 
 	void saveScore(StudentScore score);
+	
+	List<MailBean> findAllForMail();
 	
 
 }

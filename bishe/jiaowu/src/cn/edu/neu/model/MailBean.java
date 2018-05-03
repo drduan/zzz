@@ -30,4 +30,9 @@ public class MailBean {
 		this.title = title;
 	}
 
+	@Override
+	public String toString() {
+		return "MailBean [context=" + context + ", tol=" + tol + ", title=" + title + "]";
+	}
+
 }
